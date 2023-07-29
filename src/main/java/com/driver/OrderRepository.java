@@ -74,7 +74,7 @@ public class OrderRepository {
         return orderList;
     }
 
-    public int orderCountUnassigned() {
+    public int getCountOfUnassignedOrders() {
         return (orderMap.size() - orderAssignMap.size());
     }
 

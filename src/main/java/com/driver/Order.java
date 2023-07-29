@@ -18,4 +18,5 @@ public class Order {
     }
 
     public int getDeliveryTime() {return deliveryTime;}
+
 }

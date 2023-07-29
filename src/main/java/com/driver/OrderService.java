@@ -24,7 +24,7 @@ public class OrderService {
         repoObj.addOrderPartnerPair(orderId, partnerId);
     }
 
-    public Order getOrder(String orderId) {
+    public Order getOrderById(String orderId) {
         return repoObj.getOrderById(orderId);
     }
 
@@ -44,8 +44,8 @@ public class OrderService {
         return repoObj.allOrders();
     }
 
-    public int unassignedOrders() {
-        return repoObj.orderCountUnassigned();
+    public int getCountOfUnassignedOrders() {
+        return repoObj.getCountOfUnassignedOrders();
     }
 
     public int ordersLeftAfter(String deliveryTime, String partnerId) {
