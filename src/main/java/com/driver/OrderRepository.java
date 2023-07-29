@@ -12,40 +12,27 @@ import java.util.Map;
 public class OrderRepository {
 
     //orderId vs Order
-    private Map<String, Order> orderMap;
+    private Map<String, Order> orderMap = new HashMap<>();
     //partnerId, Partner
-    private Map<String, DeliveryPartner> partnerMap;
+    private Map<String, DeliveryPartner> partnerMap = new HashMap<>();
     //partnerId vs List of orders
-    private Map<String, List<String>> pairMap;
+    private Map<String, List<String>> pairMap = new HashMap<>();
     //orderId vs partnerId
-    private Map<String, String> orderAssignMap;
-
-    public OrderRepository() {
-        orderMap = new HashMap<>();
-        partnerMap = new HashMap<>();
-        pairMap = new HashMap<>();
-        orderAssignMap = new HashMap<>();
-    }
+    private Map<String, String> orderAssignMap = new HashMap<>();
 
     public void addOrder(Order order) {
         String orderId = order.getId();
-
-        if(!orderMap.containsKey(orderId))
-            orderMap.put(orderId, order);
+        orderMap.put(orderId, order);
     }
 
     public void addPartner(DeliveryPartner partner) {
         String partnerId = partner.getId();
-
-        if(!partnerMap.containsKey(partnerId))
-            partnerMap.put(partnerId, partner);
-
+        partnerMap.put(partnerId, partner);
     }
 
     public void addOrderPartnerPair(String orderId, String partnerId) {
 
         if(orderAssignMap.containsKey(orderId)) return;
-        if(partnerMap.containsKey(partnerId)) return;
 
         List<String> partnerOrders = pairMap.getOrDefault(partnerId, new ArrayList<String>());
         partnerOrders.add(orderId);
@@ -54,23 +41,18 @@ public class OrderRepository {
         int oldOrders = partner.getNumberOfOrders();
         partner.setNumberOfOrders(oldOrders + 1);
 
-
         pairMap.put(partnerId, partnerOrders);
         orderAssignMap.put(orderId, partnerId);
     }
 
     public Order getOrderById(String orderId) {
-        if(orderMap.containsKey(orderId)) {
-            return orderMap.get(orderId);
-        }
-        else return null;
+        Order order = orderMap.get(orderId);
+        return order;
     }
 
     public DeliveryPartner getPartnerById(String partnerId) {
-        if(partnerMap.containsKey(partnerId)) {
-            return partnerMap.get(partnerId);
-        }
-        else return null;
+        DeliveryPartner partner = partnerMap.get(partnerId);
+        return partner;
     }
 
     public int orderCountByPartnerId(String partnerId) {
