@@ -48,7 +48,8 @@ public class OrderController {
     @GetMapping("/get-order-by-id/{orderId}")
     public ResponseEntity<Order> getOrderById(@PathVariable String orderId){
 
-        Order order= servObj.getOrder(orderId);
+        Order order= null;
+        order = servObj.getOrder(orderId);
         //order should be returned with an orderId.
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
@@ -57,7 +58,8 @@ public class OrderController {
     @GetMapping("/get-partner-by-id/{partnerId}")
     public ResponseEntity<DeliveryPartner> getPartnerById(@PathVariable String partnerId){
 
-        DeliveryPartner deliveryPartner = servObj.getPartner(partnerId);
+        DeliveryPartner deliveryPartner = null;
+        deliveryPartner = servObj.getPartner(partnerId);
 
         //deliveryPartner should contain the value given by partnerId
 
