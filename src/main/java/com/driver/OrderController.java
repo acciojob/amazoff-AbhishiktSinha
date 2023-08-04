@@ -31,14 +31,14 @@ public class OrderController {
     }
 
     @PostMapping("/add-partner/{partnerId}")
-    public ResponseEntity<String> addPartner(@PathVariable String partnerId){
+    public ResponseEntity<String> addPartner(@PathVariable("partnerId") String partnerId){
         servObj.addDeliveryPartner(partnerId);
 
         return new ResponseEntity<>("New delivery partner added successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/add-order-partner-pair")
-    public ResponseEntity<String> addOrderPartnerPair(@RequestParam String orderId, @RequestParam String partnerId){
+    public ResponseEntity<String> addOrderPartnerPair(@RequestParam("orderId") String orderId, @RequestParam("partnerId") String partnerId){
 
         //This is basically assigning that order to that partnerId
         servObj.assignOrderToPartner(orderId, partnerId);
@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-order-by-id/{orderId}")
-    public ResponseEntity<Order> getOrderById(@PathVariable String orderId){
+    public ResponseEntity<Order> getOrderById(@PathVariable("orderId") String orderId){
 
         Order order= null;
         order = servObj.getOrderById(orderId);
@@ -56,7 +56,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-partner-by-id/{partnerId}")
-    public ResponseEntity<DeliveryPartner> getPartnerById(@PathVariable String partnerId){
+    public ResponseEntity<DeliveryPartner> getPartnerById(@PathVariable("partnerId") String partnerId){
 
         DeliveryPartner deliveryPartner = null;
         deliveryPartner = servObj.getPartner(partnerId);
@@ -67,7 +67,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-order-count-by-partner-id/{partnerId}")
-    public ResponseEntity<Integer> getOrderCountByPartnerId(@PathVariable String partnerId){
+    public ResponseEntity<Integer> getOrderCountByPartnerId(@PathVariable("partnerId") String partnerId){
 
         Integer orderCount = servObj.ordersAssignedToPartner(partnerId);
 
@@ -77,7 +77,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-orders-by-partner-id/{partnerId}")
-    public ResponseEntity<List<String>> getOrdersByPartnerId(@PathVariable String partnerId){
+    public ResponseEntity<List<String>> getOrdersByPartnerId(@PathVariable("partnerId") String partnerId){
         List<String> orders = servObj.orderListByPartnerId(partnerId);
 
         //orders should contain a list of orders by PartnerId
@@ -103,7 +103,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-count-of-orders-left-after-given-time/{time}/{partnerId}")
-    public ResponseEntity<Integer> getOrdersLeftAfterGivenTimeByPartnerId(@PathVariable String time, @PathVariable String partnerId){
+    public ResponseEntity<Integer> getOrdersLeftAfterGivenTimeByPartnerId(@PathVariable("time") String time, @PathVariable("partnerId") String partnerId){
 
         Integer countOfOrders = servObj.ordersLeftAfter(time, partnerId);
 
@@ -113,7 +113,7 @@ public class OrderController {
     }
 
     @GetMapping("/get-last-delivery-time/{partnerId}")
-    public ResponseEntity<String> getLastDeliveryTimeByPartnerId(@PathVariable String partnerId){
+    public ResponseEntity<String> getLastDeliveryTimeByPartnerId(@PathVariable("partnerId") String partnerId){
         String time = servObj.lastDelivery(partnerId);
 
         //Return the time when that partnerId will deliver his last delivery order.
@@ -122,7 +122,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete-partner-by-id/{partnerId}")
-    public ResponseEntity<String> deletePartnerById(@PathVariable String partnerId){
+    public ResponseEntity<String> deletePartnerById(@PathVariable("partnerId") String partnerId){
 
         //Delete the partnerId
         //And push all his assigned orders to unassigned orders.
@@ -132,7 +132,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete-order-by-id/{orderId}")
-    public ResponseEntity<String> deleteOrderById(@PathVariable String orderId){
+    public ResponseEntity<String> deleteOrderById(@PathVariable("orderId") String orderId){
 
         //Delete an order and also
         // remove it from the assigned order of that partnerId
